@@ -320,7 +320,7 @@ export default function AboutPage() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen  text-primary">
+    <main className="min-h-screen  text-primary overflow-hidden">
       {/* Hero Section */}
       <section className={`relative  ${spacing.section} ${spacing.py.section}`}>
         {/* Animated Background Elements */}
