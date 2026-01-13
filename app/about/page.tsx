@@ -108,9 +108,26 @@ const floatAnimation = {
 
 export default function AboutPage() {
   const [mounted, setMounted] = useState(false);
+  const [vh, setVh] = useState("100vh");
 
   useEffect(() => {
     setMounted(true);
+
+    // Mobile-safe viewport height calculation
+    const setMobileVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      setVh("calc(var(--vh, 1vh) * 100)");
+    };
+
+    setMobileVh();
+    window.addEventListener("resize", setMobileVh);
+    window.addEventListener("orientationchange", setMobileVh);
+
+    return () => {
+      window.removeEventListener("resize", setMobileVh);
+      window.removeEventListener("orientationchange", setMobileVh);
+    };
   }, []);
 
   const spacing = {
@@ -317,14 +334,29 @@ export default function AboutPage() {
     { skill: "React Native", progress: 60, color: "bg-[#8B5CF6]" },
   ];
 
-  if (!mounted) return null;
+  // Render empty skeleton during SSR to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <main className="relative isolate" style={{ height: vh }}>
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Static skeleton that matches the layout structure */}
+          <div className="h-full w-full bg-background" />
+        </div>
+      </main>
+    );
+  }
 
   return (
-    <main className="min-h-screen  text-primary overflow-hidden">
+    <main
+      className="relative text-primary isolate contain-layout"
+      style={{ height: vh, minHeight: "-webkit-fill-available" }}
+    >
       {/* Hero Section */}
-      <section className={`relative  ${spacing.section} ${spacing.py.section}`}>
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <section
+        className={`relative ${spacing.section} ${spacing.py.section} overflow-hidden`}
+      >
+        {/* Animated Background Elements - Contained to prevent layout shifts */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none contain-paint">
           <motion.div
             className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-[#f59e0b]/10 to-transparent rounded-full blur-3xl"
             animate={{
@@ -424,7 +456,7 @@ export default function AboutPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 + index * 0.1 }}
                       whileHover={{ scale: 1.05 }}
-                      className="bg-card rounded-lg p-4 border border-border"
+                      className="bg-card rounded-lg p-4 border border-border contain-paint"
                     >
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-[#f59e0b]/10">
@@ -471,7 +503,7 @@ export default function AboutPage() {
             <motion.div
               variants={scaleIn}
               whileHover="animate"
-              className="relative"
+              className="relative isolate contain-layout"
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-[#f59e0b]/20 to-[#3B82F6]/20 rounded-3xl blur-xl"
@@ -484,7 +516,7 @@ export default function AboutPage() {
                   ease: "linear",
                 }}
               />
-              <div className="relative p-8 bg-card border border-border h-full rounded-3xl">
+              <div className="relative p-8 bg-card border border-border h-full rounded-3xl contain-paint">
                 <div className="flex flex-col items-center justify-center h-full text-center p-8">
                   <motion.div
                     variants={floatAnimation}
@@ -512,7 +544,7 @@ export default function AboutPage() {
                           href="#"
                           whileHover={{ scale: 1.2, rotate: 5 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-3 rounded-xl bg-muted hover:bg-accent transition-colors"
+                          className="p-3 rounded-xl bg-muted hover:bg-accent transition-colors contain-paint"
                         >
                           <Icon className="w-5 h-5" />
                         </motion.a>
@@ -528,13 +560,13 @@ export default function AboutPage() {
 
       {/* Development Principles */}
       <section
-        className={`${spacing.section} ${spacing.py.section} bg-muted/30`}
+        className={`${spacing.section} ${spacing.py.section} bg-muted/30 relative isolate contain-layout`}
       >
         <div className={spacing.container}>
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.3, margin: "50px" }}
             variants={staggerContainer}
           >
             <div className="text-center mb-16">
@@ -574,7 +606,7 @@ export default function AboutPage() {
                     key={index}
                     variants={fadeUp}
                     whileHover={{ y: -8, scale: 1.02 }}
-                    className="group"
+                    className="group contain-layout"
                   >
                     <div className="card p-8 bg-card border border-border rounded-xl hover:border-[#f59e0b]/30 transition-all duration-300 h-full">
                       <motion.div
@@ -599,7 +631,7 @@ export default function AboutPage() {
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "50px" }}
                             className="flex items-center gap-2"
                           >
                             <ChevronRight className="w-4 h-4 text-[#f59e0b]" />
@@ -619,12 +651,14 @@ export default function AboutPage() {
       </section>
 
       {/* Technical Expertise */}
-      <section className={`${spacing.section} ${spacing.py.section}`}>
+      <section
+        className={`${spacing.section} ${spacing.py.section} relative isolate contain-layout`}
+      >
         <div className={spacing.container}>
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.3, margin: "50px" }}
             variants={staggerContainer}
           >
             <div className="text-center mb-16">
@@ -658,13 +692,13 @@ export default function AboutPage() {
                     variants={scaleIn}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "50px" }}
                     whileHover={{
                       scale: 1.05,
                       transition: { type: "spring", stiffness: 300 },
                     }}
                     transition={{ delay: index * 0.05 }}
-                    className="group"
+                    className="group contain-layout"
                   >
                     <div className="card p-6 bg-card border border-border rounded-lg hover:border-[#f59e0b]/50 transition-all duration-300">
                       <div className="flex flex-col items-center text-center">
@@ -688,7 +722,7 @@ export default function AboutPage() {
                             className="h-1.5 rounded-full"
                             initial={{ width: 0 }}
                             whileInView={{ width: `${tech.level}%` }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "50px" }}
                             transition={{ duration: 1, delay: index * 0.1 }}
                             style={{
                               backgroundColor: tech.color,
@@ -710,13 +744,13 @@ export default function AboutPage() {
 
       {/* Timeline & Experience */}
       <section
-        className={`${spacing.section} ${spacing.py.section} bg-muted/30`}
+        className={`${spacing.section} ${spacing.py.section} bg-muted/30 relative isolate contain-layout`}
       >
         <div className={spacing.container}>
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.3, margin: "50px" }}
             variants={staggerContainer}
           >
             <div className="grid lg:grid-cols-2 gap-12">
@@ -744,9 +778,9 @@ export default function AboutPage() {
                         variants={fadeUp}
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "50px" }}
                         transition={{ delay: index * 0.2 }}
-                        className="relative pl-12"
+                        className="relative pl-12 contain-layout"
                       >
                         <motion.div
                           className="absolute left-0 top-1 w-10 h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center"
@@ -779,7 +813,7 @@ export default function AboutPage() {
                                 key={i}
                                 initial={{ opacity: 0, x: -10 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: true, margin: "50px" }}
                                 transition={{ delay: i * 0.1 }}
                                 className="flex items-start gap-2"
                               >
@@ -819,10 +853,10 @@ export default function AboutPage() {
                       variants={fadeUp}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, margin: "50px" }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ y: -5 }}
-                      className="card p-6 bg-card border border-border rounded-lg hover:border-[#f59e0b]/50 transition-all duration-300"
+                      className="card p-6 bg-card border border-border rounded-lg hover:border-[#f59e0b]/50 transition-all duration-300 contain-layout"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <h3 className="text-xl font-bold">{project.title}</h3>
@@ -839,7 +873,7 @@ export default function AboutPage() {
                             key={i}
                             initial={{ opacity: 0, scale: 0.8 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "50px" }}
                             transition={{ delay: i * 0.05 }}
                             className="px-3 py-1 text-xs bg-muted rounded-lg text-muted-foreground"
                           >
@@ -861,12 +895,14 @@ export default function AboutPage() {
       </section>
 
       {/* Learning & Growth */}
-      <section className={`${spacing.section} ${spacing.py.section}`}>
+      <section
+        className={`${spacing.section} ${spacing.py.section} relative isolate contain-layout`}
+      >
         <div className={spacing.container}>
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.3, margin: "50px" }}
             variants={staggerContainer}
           >
             <div className="grid lg:grid-cols-2 gap-12">
@@ -891,7 +927,7 @@ export default function AboutPage() {
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, margin: "50px" }}
                       transition={{ delay: index * 0.1 }}
                       className="space-y-2"
                     >
@@ -906,7 +942,7 @@ export default function AboutPage() {
                           className={`h-2 rounded-full ${goal.color}`}
                           initial={{ width: 0 }}
                           whileInView={{ width: `${goal.progress}%` }}
-                          viewport={{ once: true }}
+                          viewport={{ once: true, margin: "50px" }}
                           transition={{ duration: 1, delay: index * 0.2 }}
                         />
                       </div>
@@ -942,10 +978,10 @@ export default function AboutPage() {
                       key={index}
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, margin: "50px" }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ x: 5 }}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border"
+                      className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border contain-layout"
                     >
                       <ChevronRight className="w-5 h-5 text-[#f59e0b]" />
                       <span className="text-muted-foreground">{focus}</span>
@@ -959,18 +995,20 @@ export default function AboutPage() {
       </section>
 
       {/* Final CTA */}
-      <section className={`${spacing.section} pb-32`}>
+      <section
+        className={`${spacing.section} pb-32 relative isolate contain-layout`}
+      >
         <div className={spacing.container}>
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.3, margin: "50px" }}
             variants={staggerContainer}
             className="text-center"
           >
             <motion.div
               variants={scaleIn}
-              className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card via-card to-muted/20"
+              className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card via-card to-muted/20 contain-paint"
             >
               {/* Animated background */}
               <motion.div
