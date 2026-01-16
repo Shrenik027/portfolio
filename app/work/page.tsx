@@ -426,7 +426,7 @@ export default function WorkPage() {
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         className="relative"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl blur" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-amber-700 to-orange-700 rounded-2xl blur" />
                         <div className="relative p-6 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 backdrop-blur-sm">
                           <Icon className="w-10 h-10 text-amber-500" />
                         </div>

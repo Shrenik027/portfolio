@@ -328,10 +328,26 @@ export default function AboutPage() {
   ];
 
   const learningGoals = [
-    { skill: "Microservices", progress: 65, color: "bg-[#f59e0b]" },
-    { skill: "Docker & Kubernetes", progress: 50, color: "bg-[#3B82F6]" },
-    { skill: "GraphQL", progress: 70, color: "bg-[#10B981]" },
-    { skill: "React Native", progress: 60, color: "bg-[#8B5CF6]" },
+    {
+      skill: "Backend Automation (Python, Flask)",
+      progress: 85,
+      color: "bg-[#f59e0b]",
+    },
+    {
+      skill: "API Development (Node.js, Express)",
+      progress: 80,
+      color: "bg-[#3B82F6]",
+    },
+    {
+      skill: "AI-Assisted Automation & OCR Pipelines",
+      progress: 75,
+      color: "bg-[#10B981]",
+    },
+    {
+      skill: "System Design Fundamentals",
+      progress: 65,
+      color: "bg-[#8B5CF6]",
+    },
   ];
 
   // Render static skeleton during SSR to avoid hydration mismatch
@@ -501,14 +517,14 @@ export default function AboutPage() {
 
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
                 <motion.a
-                  href="/Shrenik_Full_Stack.pdf"
+                  href="https://drive.google.com/file/d/1bN6YOwanf2ElOXnppvha_o5jR3xN66pP/view?usp=sharing"
                   download
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#f59e0b] to-[#f97316] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 will-change-transform"
                 >
                   <Download className="w-5 h-5" />
-                  Download Resume
+                  View Resume
                 </motion.a>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -942,9 +958,9 @@ export default function AboutPage() {
                 >
                   <Brain className="w-8 h-8 text-[#f59e0b]" />
                   <div>
-                    <h2 className="text-2xl font-bold">Currently Learning</h2>
+                    <h2 className="text-2xl font-bold">Currently Building</h2>
                     <p className="text-muted-foreground">
-                      Skills I'm actively developing
+                      Skills I actively work with
                     </p>
                   </div>
                 </motion.div>
@@ -996,11 +1012,11 @@ export default function AboutPage() {
 
                 <div className="space-y-4">
                   {[
-                    "Building scalable microservices architecture",
-                    "Mastering cloud-native development",
-                    "Contributing to open-source projects",
-                    "Mentoring junior developers",
-                    "Exploring Web3 technologies",
+                    "Designing reliable backend automation systems",
+                    "Improving API performance & validation logic",
+                    "Building AI-assisted compliance workflows",
+                    "Strengthening system design fundamentals",
+                    "Writing production-ready, documented code",
                   ].map((focus, index) => (
                     <motion.div
                       key={index}

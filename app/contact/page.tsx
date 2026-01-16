@@ -90,8 +90,8 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      value: "contact@shrenikdubal.com",
-      link: "mailto:contact@shrenikdubal.com",
+      value: "shrenik9477@gmail.com",
+      link: "mailto:shrenik9477@gmail.com",
       description: "For project inquiries and collaborations",
       color: "text-brand",
       bg: "bg-brand/10",
@@ -100,8 +100,8 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      value: "+91 98765 43210",
-      link: "tel:+919876543210",
+      value: "+91 8928609477",
+      link: "tel:+918928609477",
       description: "Available Mon-Fri, 10AM-6PM IST",
       color: "text-[#10B981]",
       bg: "bg-[#10B981]/10",
@@ -132,23 +132,16 @@ export default function ContactPage() {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com/shrenikdubal",
-      stats: "15+ repos",
+      href: "https://github.com/Shrenik027",
+      stats: "10+ repos",
       color: "hover:bg-gray-900 hover:text-white",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/shrenikdubal",
-      stats: "500+ connections",
+      href: "https://www.linkedin.com/in/shrenik-dubal-b1692029a/",
+      stats: "250+ connections",
       color: "hover:bg-[#0077B5] hover:text-white",
-    },
-    {
-      icon: Twitter,
-      label: "Twitter",
-      href: "https://twitter.com/shrenikdubal",
-      stats: "Tech insights",
-      color: "hover:bg-[#1DA1F2] hover:text-white",
     },
   ];
 
@@ -164,15 +157,8 @@ export default function ContactPage() {
       title: "Download CV",
       description: "Get my professional resume",
       icon: FileText,
-      link: "/Shrenik_Full_Stack.pdf",
+      link: "https://drive.google.com/file/d/1bN6YOwanf2ElOXnppvha_o5jR3xN66pP/view?usp=sharing",
       color: "from-[#3B82F6] to-[#3B82F6]/80",
-    },
-    {
-      title: "Schedule Call",
-      description: "Book a 30-min consultation",
-      icon: Calendar,
-      link: "https://calendly.com/shrenikdubal",
-      color: "from-[#10B981] to-[#10B981]/80",
     },
   ];
 

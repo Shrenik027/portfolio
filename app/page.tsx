@@ -386,7 +386,7 @@ export default function Home() {
               </Link>
 
               <a
-                href="/Shrenik_Full_Stack.pdf"
+                href="https://drive.google.com/file/d/1bN6YOwanf2ElOXnppvha_o5jR3xN66pP/view?usp=sharing"
                 download
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-blue-500/30 text-foreground font-semibold rounded-xl hover:scale-105 transition-transform"
               >

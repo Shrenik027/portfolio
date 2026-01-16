@@ -218,39 +218,35 @@ export default function ServicesPage() {
 
   const caseStudies = [
     {
-      service: "web-dev",
-      title: "E-commerce Platform",
+      service: "automation-ai",
+      title: "AI Compliance Checker",
       description:
-        "Built a high-performance e-commerce solution with real-time inventory and payment processing",
+        "Built an automation system to extract configuration data and validate it against compliance rules.",
       results: [
-        "300% faster load times",
-        "40% increase in conversions",
-        "99.9% uptime",
+        "Automated data extraction",
+        "Structured compliance reports",
+        "Error-handled pipelines",
       ],
       color: "#3B82F6",
     },
     {
-      service: "api-dev",
-      title: "Financial Data API",
+      service: "backend-systems",
+      title: "E-commerce Backend",
       description:
-        "Developed a secure financial data API with real-time updates and advanced analytics",
+        "Developed REST APIs for authentication, products, cart, and orders.",
       results: [
-        "< 50ms response time",
-        "Handles 10k+ requests/sec",
-        "Bank-level security",
+        "Clean API design",
+        "Secure authentication",
+        "Consistent response formats",
       ],
       color: "#10B981",
     },
     {
-      service: "bug-fixes",
-      title: "Hospitality Website Rescue",
+      service: "maintenance",
+      title: "Legacy Project Stabilization",
       description:
-        "Fixed critical bugs and improved performance for a major hotel booking platform",
-      results: [
-        "70% performance improvement",
-        "Zero downtime deployment",
-        "50% cost reduction",
-      ],
+        "Debugged and improved an existing project with broken logic and deployment issues.",
+      results: ["Bug fixes", "Improved stability", "Cleaner codebase"],
       color: "#F59E0B",
     },
   ];
@@ -267,7 +263,7 @@ export default function ServicesPage() {
     },
     { name: "MongoDB", icon: Database, color: "#47A248", category: "Database" },
     { name: "AWS", icon: Cloud, color: "#FF9900", category: "Cloud" },
-    { name: "Docker", icon: Cctv, color: "#2496ED", category: "DevOps" },
+    { name: "REST APIs", icon: Server, color: "#2496ED", category: "API" },
     { name: "Git", icon: GitBranch, color: "#F1502F", category: "Tools" },
   ];
 
@@ -337,9 +333,9 @@ export default function ServicesPage() {
               variants={fadeUp}
               className="text-xl text-muted-foreground/80 mb-12 leading-relaxed max-w-2xl mx-auto backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/10"
             >
-              Professional web development services focused on building,
-              optimizing, and maintaining high-performance digital products.
-              From greenfield projects to legacy system rescue.
+              I build and maintain backend systems, APIs, and AI-assisted
+              automation pipelines through hands-on engineering and real-world
+              projects.
             </motion.p>
           </div>
         </div>
@@ -382,8 +378,8 @@ export default function ServicesPage() {
                   whileTap={{ scale: 0.95 }}
                   className={`flex items-center gap-4 px-8 py-5 rounded-2xl transition-all duration-300 ${
                     activeTab === key
-                      ? `bg-gradient-to-r ${service.gradient} text-white shadow-xl`
-                      : "bg-card border border-white/10 text-muted-foreground hover:border-white/20"
+                      ? "bg-muted/60 text-foreground border border-border shadow-sm"
+                      : "bg-card border border-border text-muted-foreground hover:bg-muted/40"
                   }`}
                 >
                   <Icon className="w-6 h-6" />
@@ -402,27 +398,22 @@ export default function ServicesPage() {
             className="relative group"
           >
             <div
-              className={`absolute -inset-1 bg-gradient-to-r ${activeService.gradient} rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-500`}
+              className={`absolute -inset-1 bg-gradient-to-r ${activeService.gradient} rounded-3xl blur opacity-[0.06] group-hover:opacity-[0.1] transition duration-500`}
             />
 
             <div className="relative bg-gradient-to-br from-card via-card/95 to-card/90 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden">
               {/* Header */}
-              <div
-                className={`p-8 border-b border-white/10 bg-gradient-to-r ${activeService.gradient
-                  .replace("from", "from")
-                  .replace("via", "via")
-                  .replace("to", "to")}/10`}
-              >
+              <div className="p-8 border-b border-white/10 bg-white/5">
                 <div className="flex flex-col lg:flex-row lg:items-start gap-8">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     className="relative flex-shrink-0"
                   >
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-2xl blur"
-                      animate={{ opacity: [0.5, 0.8, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute inset-0 bg-white/10 rounded-2xl blur"
+                      animate={{ opacity: [0.2, 0.35, 0.2] }}
                     />
+
                     <div className="relative p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
                       <activeService.icon
                         className={`w-12 h-12`}
